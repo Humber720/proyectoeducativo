@@ -63,12 +63,17 @@ async fn validar_handler(
     }
 }
 
+
 #[tokio::main]
 async fn main() {
     let app = Router::new().route("/validar", post(validar_handler));
 
-    let direccion = "127.0.0.1:8081";
-    let listener = tokio::net::TcpListener::bind(direccion)
+    let puerto = std::env::var("PORT")
+        .unwrap_or_else(|_| "8081".to_string());
+
+    let direccion = format!("0.0.0.0:{puerto}");
+
+    let listener = tokio::net::TcpListener::bind(&direccion)
         .await
         .expect("No se pudo iniciar el servicio Rust");
 
@@ -78,3 +83,4 @@ async fn main() {
         .await
         .expect("Error en el servicio Rust");
 }
+
