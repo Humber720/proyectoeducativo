@@ -66,6 +66,10 @@ def analizar():
     return jsonify(resultado)
 
 
+
 if __name__ == "__main__":
-    print("Servicio Python disponible en http://127.0.0.1:5000")
-    app.run(host="127.0.0.1", port=5000, debug=False)
+    import os
+
+    puerto = int(os.environ.get("PORT", 5000))
+    print(f"Servicio Python iniciado en el puerto {puerto}")
+    app.run(host="0.0.0.0", port=puerto, debug=False)
