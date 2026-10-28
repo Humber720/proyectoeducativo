@@ -23,8 +23,8 @@ interface ResultadoAnalisis {
     recomendacion: string;
 }
 
-const API = "http://localhost:8080/estudiantes";
-const API_ANALISIS = "http://localhost:8080/analizar";
+const API = "https://proyectoeducativo-go.onrender.com/estudiantes";
+const API_ANALISIS = "https://proyectoeducativo-go.onrender.com/analizar";
 
 const formulario = document.getElementById("formEstudiante") as HTMLFormElement;
 const lista = document.getElementById("listaEstudiantes") as HTMLUListElement;
