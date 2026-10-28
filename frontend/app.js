@@ -1,6 +1,6 @@
 "use strict";
-const API = "http://localhost:8080/estudiantes";
-const API_ANALISIS = "http://localhost:8080/analizar";
+const API = "https://proyectoeducativo-go.onrender.com/estudiantes";
+const API_ANALISIS = "https://proyectoeducativo-go.onrender.com/analizar";
 const formulario = document.getElementById("formEstudiante");
 const lista = document.getElementById("listaEstudiantes");
 const formularioNota = document.getElementById("formNota");
