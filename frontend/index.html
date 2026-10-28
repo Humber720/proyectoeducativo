@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma Integral de Gestión Educativa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Plataforma Integral de Gestión Educativa</h1>
+    <p>Registro de estudiantes, notas y asistencia.</p>
+
+    <hr>
+
+    <h2>1. Registrar estudiante</h2>
+
+    <form id="formEstudiante">
+        <label for="ci">N.º C.I.:</label>
+        <input id="ci" type="text" required>
+        <br><br>
+
+        <label for="nombre">Nombre completo:</label>
+        <input id="nombre" type="text" required>
+        <br><br>
+
+        <label for="curso">Curso:</label>
+        <input id="curso" type="text" required>
+        <br><br>
+
+        <button type="submit">Registrar estudiante</button>
+    </form>
+
+    <h3>Estudiantes registrados</h3>
+    <ul id="listaEstudiantes"></ul>
+
+    <hr>
+
+    <h2>2. Registrar nota</h2>
+
+    <form id="formNota">
+        <label for="estudianteNota">Estudiante:</label>
+        <select id="estudianteNota" required>
+            <option value="">Seleccione un estudiante</option>
+        </select>
+        <br><br>
+
+        <label for="calificacion">Calificación (0 a 100):</label>
+        <input id="calificacion" type="number"
+               min="0" max="100" step="any" required>
+        <br><br>
+
+        <button type="submit">Registrar nota</button>
+    </form>
+
+    <h3>Notas registradas</h3>
+    <ul id="listaNotas"></ul>
+
+    <h3>Análisis académico con Python</h3>
+    <button id="btnAnalizar" type="button">
+    Analizar calificaciones
+    </button>
+
+    <div id="resultadoAnalisis" aria-live="polite">
+        <p>Seleccione un estudiante y registre sus notas para realizar el análisis.</p>
+    </div>
+
+    <hr>
+
+    <h2>3. Control de asistencia</h2>
+
+    <form id="formAsistencia">
+        <label for="estudianteAsistencia">Estudiante:</label>
+        <select id="estudianteAsistencia" required>
+            <option value="">Seleccione un estudiante</option>
+        </select>
+        <br><br>
+
+        <label for="estadoAsistencia">Estado:</label>
+        <select id="estadoAsistencia" required>
+            <option value="">Seleccione</option>
+            <option value="Presente">Presente</option>
+            <option value="Falta">Falta</option>
+            <option value="Permiso">Permiso</option>
+            <option value="Atraso">Atraso</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Registrar asistencia</button>
+    </form>
+
+    <h3>Asistencias registradas</h3>
+    <ul id="listaAsistencia"></ul>
+
+    <script src="app.js"></script>
+</body>
+</html>
