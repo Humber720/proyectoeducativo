@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"sync"
 	"time"
 )
@@ -34,6 +35,23 @@ var clienteHTTP = &http.Client{
 	Timeout: 10 * time.Second,
 }
 
+// Render: permite configurar las direcciones mediante variables de entorno.
+func direccionRust() string {
+	url := os.Getenv("RUST_URL")
+	if url == "" {
+		return "http://127.0.0.1:8081/validar"
+	}
+	return url
+}
+
+func direccionPython() string {
+	url := os.Getenv("PYTHON_URL")
+	if url == "" {
+		return "http://127.0.0.1:5000/analizar"
+	}
+	return url
+}
+
 func configurarCORS(w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -54,7 +72,7 @@ func validarConRust(estudiante Estudiante) (RespuestaRust, int, error) {
 
 	req, err := http.NewRequest(
 		http.MethodPost,
-		"http://127.0.0.1:8081/validar",
+		direccionRust(),
 		bytes.NewBuffer(cuerpo),
 	)
 	if err != nil {
@@ -162,7 +180,7 @@ func analizarHandler(w http.ResponseWriter, r *http.Request) {
 
 	req, err := http.NewRequest(
 		http.MethodPost,
-		"http://127.0.0.1:5000/analizar",
+		direccionPython(),
 		bytes.NewReader(cuerpo),
 	)
 	if err != nil {
@@ -188,9 +206,15 @@ func main() {
 	http.HandleFunc("/estudiantes", estudiantesHandler)
 	http.HandleFunc("/analizar", analizarHandler)
 
-	log.Println("Servidor Go iniciado en http://localhost:8080")
-	log.Println("Validacion de estudiantes mediante Rust")
-	log.Println("Analisis academico mediante Python")
+	// Render asigna el puerto mediante la variable PORT.
+	puerto := os.Getenv("PORT")
+	if puerto == "" {
+		puerto = "8080"
+	}
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Printf("Servidor Go iniciado en el puerto %s", puerto)
+	log.Println("Validación de estudiantes mediante Rust")
+	log.Println("Análisis académico mediante Python")
+
+	log.Fatal(http.ListenAndServe(":"+puerto, nil))
 }
